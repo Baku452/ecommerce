@@ -39,6 +39,7 @@ router.post("/orders", async (req, res) => {
 
 router.post("/payment", async (req, res) => {
   // Create a preference object
+  console.log("Entre a payments")
   let preference = {
     items: [
       {
@@ -53,10 +54,11 @@ router.post("/payment", async (req, res) => {
     .create(preference)
     .then(function (response) {
       // This value replaces the String "<%= global.id %>" in your HTML
-      global.id = response.body.id
+      const global = response.body
+      return res.status(200).json({ body: global })
     })
     .catch(function (error) {
-      console.log(error)
+      return res.status(400).json({ error: error })
     })
 })
 
